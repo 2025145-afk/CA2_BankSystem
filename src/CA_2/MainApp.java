@@ -17,7 +17,8 @@ public class MainApp {
         System.out.println("======================================");
         System.out.println("     BANK MANAGEMENT PROTOTYPE");
         System.out.println("======================================");
-
+System.out.println(DepartmentName.IT);
+System.out.println(ManagerType.TEAM_LEAD);
         do {
             // Exibe o menu
             System.out.println("\nPlease select an option:");
