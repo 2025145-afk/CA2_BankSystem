@@ -9,7 +9,29 @@ package CA_2;
  * @author diego
  */
 public enum ManagerType {
-    HEAD_MANAGER,
-    ASSISTANT_MANAGER,
-    TEAM_LEAD
+    BRANCH_MANAGER("Branch Manager"),
+    DEPARTMENT_MANAGER("Department Manager"),
+    REGIONAL_MANAGER("Regional Manager");
+    
+    private String type;
+    
+    // Constructor
+    ManagerType(String type) {
+        this.type = type;
+    }
+    
+    // Getter
+    public String getType() {
+        return type;
+    }
+    
+    // Mostrar todos os tipos
+    public static void displayTypes() {
+        System.out.println("\nManager Types:");
+        int i = 1;
+        for (ManagerType mt : ManagerType.values()) {
+            System.out.println(i + ". " + mt.getType());
+            i++;
+        }
+    }
 }

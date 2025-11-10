@@ -4,78 +4,92 @@
  */
 package CA_2;
 import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 /**
  *
  * @author diego
  */
 public class MainApp {
   
+        // Class variables (outside main method!)
+    private static ArrayList<Employee> employeeList = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+    private static int employeeIdCounter = 1000;
+    
+    // Only ONE main method
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        MenuOption choice;
-
-        System.out.println("======================================");
-        System.out.println("     BANK MANAGEMENT PROTOTYPE");
-        System.out.println("======================================");
-System.out.println(DepartmentName.IT);
-System.out.println(ManagerType.TEAM_LEAD);
-        do {
-            // Exibe o menu
-            System.out.println("\nPlease select an option:");
-            System.out.println("1. Add Employee");
-            System.out.println("2. Generate Random Employees");
-            System.out.println("3. Sort Employees");
-            System.out.println("4. Search Employee");
-            System.out.println("5. View All Employees");
-            System.out.println("6. Exit");
-            System.out.print("Enter your choice: ");
-
-            int option = input.nextInt();
-            choice = getMenuOption(option);
-
+        System.out.println("Welcome to Bank Employee Management System!");
+        
+        // Read file
+        loadEmployeesFromFile();
+        
+        // Menu loop
+        boolean running = true;
+        
+        while (running) {
+            MenuOption.displayMenu();
+            
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // clear buffer
+            
             switch (choice) {
-                case ADD_EMPLOYEE:
-                    System.out.println("Adding employee...");
+                case 1:
+                    System.out.println("SORT selected");
+                    // will implement later
                     break;
-                case GENERATE_RANDOM_EMPLOYEES:
-                    System.out.println("Generating random employees...");
+                case 2:
+                    System.out.println("SEARCH selected");
+                    // will implement later
                     break;
-                case SORT_EMPLOYEES:
-                    System.out.println("Sorting employees...");
+                case 3:
+                    System.out.println("ADD RECORD selected");
+                    // will implement later
                     break;
-                case SEARCH_EMPLOYEE:
-                    System.out.println("Searching employee...");
+                case 4:
+                    System.out.println("BINARY TREE selected");
+                    // will implement later
                     break;
-                case VIEW_ALL_EMPLOYEES:
-                    System.out.println("Listing all employees...");
-                    break;
-                case EXIT:
-                    System.out.println("Exiting program. Goodbye!");
+                case 5:
+                    System.out.println("Goodbye!");
+                    running = false;
                     break;
                 default:
-                    System.out.println("Invalid option! Please try again.");
+                    System.out.println("Invalid option!");
             }
-
-        } while (choice != MenuOption.EXIT);
-    }
-
-    // Método auxiliar para converter número em enum
-    private static MenuOption getMenuOption(int option) {
-        switch (option) {
-            case 1:
-                return MenuOption.ADD_EMPLOYEE;
-            case 2:
-                return MenuOption.GENERATE_RANDOM_EMPLOYEES;
-            case 3:
-                return MenuOption.SORT_EMPLOYEES;
-            case 4:
-                return MenuOption.SEARCH_EMPLOYEE;
-            case 5:
-                return MenuOption.VIEW_ALL_EMPLOYEES;
-            case 6:
-                return MenuOption.EXIT;
-            default:
-                return null;
         }
-    }  
+        
+        scanner.close();
+    }
+    
+    // Function to read file
+    private static void loadEmployeesFromFile() {
+        System.out.print("Please enter the filename to read: ");
+        String filename = scanner.nextLine();
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            String line;
+            
+            while ((line = br.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    // Create employee with random data for now
+                    String name = line.trim();
+                    String managerType = "Branch Manager"; // temporary
+                    String department = "Retail Banking"; // temporary
+                    
+                    Employee emp = new Employee(employeeIdCounter++, name, managerType, department);
+                    employeeList.add(emp);
+                }
+            }
+            
+            br.close();
+            System.out.println("File read successfully! Loaded " + employeeList.size() + " employees.");
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("Error reading file!");
+        }
+    }
 }
